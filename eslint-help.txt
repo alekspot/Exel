@@ -3,3 +3,5 @@ Rules
 "semi": "off"                 | необязательные ;
 "arrow-parens": "off"         | аргументы у функций могут быть без скобок  ext => ext
 "comma-dangle": "off"         | запятые после последнего свойства объекта
+"operator-linebreak": "off"   | можно переносить операторы на след.строку
+"object-curly-spacing": "off" | {dawdwad} ==> { dawdwad }

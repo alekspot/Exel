@@ -2,10 +2,11 @@
 @import "mixins";
 
 .excel-table {
+    max-width: 100%;
+    overflow-x: scroll;
     .row {
         display: flex;
         height: $row-height;
-        padding: 0 10px;
     }
     .row-info {
         min-width: $info-cell-width;
