@@ -37,6 +37,31 @@ class Dom { // Оборачивает нативные node-элементы и�
         }
         return this
     }
+
+    closest(selector) {
+        return $(this.$el.closest(selector));
+    }
+
+    getCoords() {
+        return this.$el.getBoundingClientRect()
+    }
+
+    get data() {
+        return this.$el.dataset
+    }
+
+    findAll(selector) {
+        return Array.from(this.$el.querySelectorAll(selector)).map($)
+    }
+
+    css(styles) {
+        for (const key in styles) {
+            if ({}.hasOwnProperty.call(styles, key)) {
+                this.$el.style[key] = styles[key]
+                console.log(key);
+            }
+        }
+    }
 }
 
 export function $($el) {
