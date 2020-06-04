@@ -1,5 +1,5 @@
 import { $ } from '@core/dom' // импорт JQuery подобного интерфейса
-
+import { showTime } from '@core/utils'
 export class Excel {
     constructor(selector, options) {
         this.$el = $(selector)
@@ -14,13 +14,12 @@ export class Excel {
             const $el = $.create('div', Component.className)
             const component = new Component($el)
 
-            // window[`c${component.name}`] = component
             // Заполнение div содержимым
-            $el.html(component.toHTML())
-            $root.append($el)
+            showTime($el.html, $el)(component.toHTML())
+            showTime($root.append, this)($el)
             return component
         })
-        console.log(this.components)
+
         return $root
     }
 

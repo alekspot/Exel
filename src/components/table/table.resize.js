@@ -1,4 +1,6 @@
 import { $ } from '@/core/dom';
+import { showTime } from '@core/utils';
+
 export function resizeHandler($root, event) {
     const $resizer = $(event.target)
 
@@ -13,7 +15,7 @@ export function resizeHandler($root, event) {
         [sideProp]: '-5000px'
     })
 
-    document.onmousemove = e => {
+    document.onmousemove = showTime(e => {
         if (type === 'col') {
             const delta = e.pageX - coords.right;
             value = coords.width + delta
@@ -23,7 +25,7 @@ export function resizeHandler($root, event) {
             value = coords.height + delta
             $resizer.css({ bottom: -delta + 'px' })
         }
-    }
+    })
 
     document.onmouseup = (e) => {
         document.onmousemove = null

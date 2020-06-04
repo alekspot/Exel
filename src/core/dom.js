@@ -1,4 +1,4 @@
-class Dom { // Оборачивает нативные node-элементы интерфейсом в стиле JQuery
+class Dom {
     constructor(selector) {
         this.$el = typeof selector === 'string'
             ? document.querySelector(selector)
@@ -10,7 +10,24 @@ class Dom { // Оборачивает нативные node-элементы и�
             this.$el.innerHTML = html
             return this
         }
-        return this.$el.outerHTML.trim()
+        // if (html.opt) {
+        //     console.log(html.body)
+        //     const chunks = html.body.split('!!:!!')
+        //     let iter = 0
+
+        //     let addChunk = () => {
+        //         this.$el.innerHTML = this.$el.innerHTML + chunks[iter]
+        //         iter++;
+        //         if (iter < chunks.length) {
+        //             setTimeout(addChunk, 0)
+        //         }
+        //     }
+        //     addChunk = addChunk.bind(this)
+
+        //     setTimeout(addChunk, 0);
+        //     return this
+        // }
+        // return this.$el.outerHTML.trim()
     }
 
     clear() {
@@ -50,6 +67,19 @@ class Dom { // Оборачивает нативные node-элементы и�
         return this.$el.dataset
     }
 
+    id(parsed) {
+        if (parsed) {
+            const splited = this.id().split(':')
+            const [row, col] = splited.map(item => Number(item))
+            return {row, col}
+        }
+        return this.data.id
+    }
+
+    find(selector) {
+        return $(this.$el.querySelector(selector))
+    }
+
     findAll(selector) {
         return Array.from(this.$el.querySelectorAll(selector)).map($)
     }
@@ -58,9 +88,21 @@ class Dom { // Оборачивает нативные node-элементы и�
         for (const key in styles) {
             if ({}.hasOwnProperty.call(styles, key)) {
                 this.$el.style[key] = styles[key]
-                console.log(key);
             }
         }
+    }
+
+    addClass(className) {
+        this.$el.classList.add(className)
+    }
+
+    removeClass(className) {
+        this.$el.classList.remove(className)
+    }
+
+    focus() {
+        this.$el.focus()
+        return this
     }
 }
 

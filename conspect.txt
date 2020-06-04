@@ -1,3 +1,0 @@
-el.dataset - возвращает объект с data значениями
-el.closest(selector) - находит ближайший верхний узел
-el.getBoundingClientRect() - высота, ширина, положение элемента

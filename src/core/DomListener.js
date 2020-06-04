@@ -7,7 +7,6 @@ export class DomListener {
         }
         this.$root = $root
         this.listeners = listeners
-        this.handlers = {}
     }
 
     initDomListeners() {
@@ -17,8 +16,8 @@ export class DomListener {
                 throw new Error(`Method ${method} is not implemented in ${this.name} component`)
             }
             this[method] = this[method].bind(this)
-            // тоже самое что и AddEventListeners
-            this.$root.on(listener, this[method])
+
+            this.$root.on(listener, this[method]) // addEventListeners
         })
     }
 
@@ -26,8 +25,7 @@ export class DomListener {
         this.listeners.forEach(listener => {
             const method = getMethodName(listener)
 
-            // тоже самое что и RemoveListeners
-            this.$root.off(listener, this[method])
+            this.$root.off(listener, this[method]) // removeListeners
         })
     }
 }
