@@ -10,6 +10,7 @@ class Dom {
             this.$el.innerHTML = html
             return this
         }
+        return this.$el.outerHTML.trim()
         // if (html.opt) {
         //     console.log(html.body)
         //     const chunks = html.body.split('!!:!!')
@@ -28,6 +29,16 @@ class Dom {
         //     return this
         // }
         // return this.$el.outerHTML.trim()
+    }
+
+    text(text) {
+        if (typeof text === 'string') {
+            this.$el.textContent = text
+        }
+        if (this.$el.tagName.toLowerCase() === 'input') {
+            return this.$el.value.trim()
+        }
+        return this.$el.textContent.trim()
     }
 
     clear() {
@@ -94,10 +105,12 @@ class Dom {
 
     addClass(className) {
         this.$el.classList.add(className)
+        return this
     }
 
     removeClass(className) {
         this.$el.classList.remove(className)
+        return this
     }
 
     focus() {

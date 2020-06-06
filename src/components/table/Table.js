@@ -6,12 +6,13 @@ import { TableSelection } from '@/components/table/TableSelection'
 import { showTime } from '@core/utils'
 import {$} from '@core/dom'
 export class Table extends ExcelComponent {
-    constructor($root) {
+    constructor($root, options) {
         super($root, {
             name: 'Table',
-            listeners: ['mousedown', 'keydown']
+            listeners: ['mousedown', 'keydown', 'input'],
+            ...options
         })
-        this.rowsCount = 4;
+        this.rowsCount = 20;
     }
     static className = 'excel-table';
 
@@ -19,13 +20,22 @@ export class Table extends ExcelComponent {
         return showTime(createTable)(this.rowsCount)
     }
     prepare() {
-        console.log('prepare')
+        this.selection = new TableSelection(this.$root)
     }
     init() {
         super.init()
-        this.selection = new TableSelection(this.$root)
+
         const $cell = this.$root.find('[data-id = "0:0"]')
+        this.selectCell($cell)
+
+
+        this.$on('formula:input', text => this.selection.selected.text(text))
+        this.$on('formula:done', () => this.selection.selected.focus())
+    }
+
+    selectCell($cell) {
         this.selection.select($cell)
+        this.$emit('table:select', $cell)
     }
 
     onMousedown(event) {
@@ -61,14 +71,21 @@ export class Table extends ExcelComponent {
             console.log(this.colsCount)
             const id = this.selection.selected.id(true)
             const findedId = nextSelector(key, id, this.rowsCount, this.colsCount)
-            console.log({findedId})
             const $next = this.$root.find(findedId)
-            this.selection.select($next)
+
+            this.selectCell($next)
         }
     }
 
     get colsCount() {
         return this.$root.findAll(`[data-type="resizable"][data-col]`).length
+    }
+    onInput(event) {
+        this.$emit('table:input', $(event.target))
+    }
+
+    destroy() {
+        super.destroy()
     }
 }
 
