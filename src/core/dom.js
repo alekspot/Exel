@@ -95,12 +95,19 @@ class Dom {
         return Array.from(this.$el.querySelectorAll(selector)).map($)
     }
 
-    css(styles) {
+    css(styles = {}) {
         for (const key in styles) {
             if ({}.hasOwnProperty.call(styles, key)) {
                 this.$el.style[key] = styles[key]
             }
         }
+    }
+
+    getStyles(styles=[]) {
+        return styles.reduce((res, s) => {
+            res[s] = this.$el.style[s]
+            return res
+        }, {})
     }
 
     addClass(className) {
@@ -122,6 +129,7 @@ class Dom {
 export function $($el) {
     return new Dom($el)
 }
+
 // Создает $ объект с классом
 $.create = (tagname, classes = '') => {
     const el = document.createElement(tagname)

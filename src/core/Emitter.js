@@ -23,3 +23,22 @@ export class Emitter {
 // const unsub = emitter.subscribe('test', msg => console.log(msg))
 
 // emitter.emit('test', 'My msg very long')
+
+class Em {
+    constructor() {
+        this.listeners = {}
+    }
+
+    emit(event, data) {
+        if (!Array.isArray(this.listeners[event])) {
+            return false
+        }
+        this.listeners[event].forEach(l => l(data))
+    }
+
+    subscribe(event, fn) {
+        this.listeners[event] = this.listeners[event] || []
+        this.listeners[event].push(fn)
+        return () => this.listeners[event].filter(l => l !== fn)
+    }
+}
