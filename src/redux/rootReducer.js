@@ -1,8 +1,6 @@
-import {TABLE_RESIZE, CHANGE_TEXT, APPLY_STYLE, CURRENT_STYLES} from './types'
-import { toInlineStyles } from '@core/utils'
+import {TABLE_RESIZE, CHANGE_TEXT, APPLY_STYLE, CURRENT_STYLES, CHANGE_TITLE} from './types'
 
 export function rootReducer(state, action) {
-    let prevState
     let field
     let val
     switch ( action.type ) {
@@ -27,8 +25,13 @@ export function rootReducer(state, action) {
             val[id] = {...val[id], ...action.data.value}
         })
         return {
-            ...state, [field]: val,
+            ...state,
+            [field]: val,
             currentStyles: {...state.currentStyles, ...action.data.value}
+        }
+    case CHANGE_TITLE:
+        return {
+            ...state, title: action.data
         }
     default: return state
     }

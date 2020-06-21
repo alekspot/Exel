@@ -1,5 +1,6 @@
-import {defaultStyles} from '@/constants'
+import { defaultStyles } from '@/constants'
 import { toInlineStyles } from '@core/utils'
+import {parse} from '@core/parse'
 const CODES = {
     A: 65,
     Z: 90
@@ -21,8 +22,8 @@ function toCell(state, row) {
         const id = `${row}:${col}`
         const width = getWidth(state.colState, col)
         const data = state.dataState[id]
-        // debugger
-        const styles = toInlineStyles(state.stylesState[id])
+        const styles = toInlineStyles({ ...defaultStyles, ...state.stylesState[id] })
+
         return `
             <div 
                 class="cell"
@@ -30,12 +31,13 @@ function toCell(state, row) {
                 data-type="cell"
                 data-id="${id}" 
                 data-col="${col}"
-                style="${styles};width: ${width}"
-            >${data || ''}</div>`
+                data-value="${data || ''} "
+                style="width: ${width};${styles}"
+            >${parse(data) || ''}</div>`
     }
 }
 
-function toColumn({col, index, width}) {
+function toColumn({ col, index, width }) {
     return `<div class="column" data-col="${index}" style="width: ${width}" data-type="resizable">
     ${col}
     <div class="col-resize" data-resize="col"></div>
@@ -62,7 +64,7 @@ function toChar(el, index) {
 
 function withWidthFrom(state) {
     return (col, index) => {
-        return {col, index, width: getWidth(state.colState, index)}
+        return { col, index, width: getWidth(state.colState, index) }
     }
 }
 

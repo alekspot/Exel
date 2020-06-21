@@ -4,6 +4,7 @@ import { resizeHandler } from '@/components/table/table.resize'
 import { shouldResize, isCell, matrix, nextSelector } from '@/components/table/table.functions'
 import { TableSelection } from '@/components/table/TableSelection'
 import {$} from '@core/dom'
+import {parse} from '@core/parse'
 import * as actions from '@/redux/actions'
 import {defaultStyles} from '@/constants'
 
@@ -30,10 +31,13 @@ export class Table extends ExcelComponent {
         this.selectCell(this.$root.find('[data-id = "0:0"]'))
 
 
-        this.$on('formula:input', text => {
-            this.selection.selected.text(text)
-            this.updateTextInStore(text)
+        this.$on('formula:input', value => {
+            this.selection.selected
+                .attr('data-value', value)
+                .text(parse(value))
+            this.updateTextInStore(value)
         })
+
         this.$on('formula:done', () => this.selection.selected.focus())
         this.$on('toolbar:applyStyle', value => {
             this.selection.applyStyle(value)

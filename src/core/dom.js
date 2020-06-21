@@ -11,29 +11,12 @@ class Dom {
             return this
         }
         return this.$el.outerHTML.trim()
-        // if (html.opt) {
-        //     console.log(html.body)
-        //     const chunks = html.body.split('!!:!!')
-        //     let iter = 0
-
-        //     let addChunk = () => {
-        //         this.$el.innerHTML = this.$el.innerHTML + chunks[iter]
-        //         iter++;
-        //         if (iter < chunks.length) {
-        //             setTimeout(addChunk, 0)
-        //         }
-        //     }
-        //     addChunk = addChunk.bind(this)
-
-        //     setTimeout(addChunk, 0);
-        //     return this
-        // }
-        // return this.$el.outerHTML.trim()
     }
 
     text(text) {
-        if (typeof text === 'string') {
+        if (typeof text !== 'undefined') {
             this.$el.textContent = text
+            return this
         }
         if (this.$el.tagName.toLowerCase() === 'input') {
             return this.$el.value.trim()
@@ -123,6 +106,13 @@ class Dom {
     focus() {
         this.$el.focus()
         return this
+    }
+    attr(name, value) {
+        if (value) {
+            this.$el.setAttribute(name, value)
+            return this
+        }
+        return this.$el.getAttribute(name)
     }
 }
 
