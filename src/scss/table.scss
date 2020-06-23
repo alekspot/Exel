@@ -18,6 +18,7 @@
         border-right: 1px solid $border-color;
         border-bottom: 1px solid $border-color;
         background: #f8f9fa;
+        user-select: none;
     }
     .row-data {
         display: flex;
@@ -32,12 +33,10 @@
         background: #f8f9fa;
         border-right: 1px solid $border-color;
         border-bottom: 1px solid $border-color;
-        -moz-user-select: none;
-        -khtml-user-select: none;
-        -webkit-user-select: none;
         user-select: none;
     }
     .cell {
+        overflow: hidden;
         padding: 0 10px;
         line-height: $row-height;
         width: $cell-width;
@@ -81,5 +80,4 @@
             cursor: row-resize; 
          }
     }
-    
 }

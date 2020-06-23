@@ -14,7 +14,7 @@ export class TableSelection {
 
     selectGroup($group = []) {
         this.group = $group
-        this.group.forEach($cell => $cell.css({ background: '#6b9ae0' }))
+        this.group.forEach($cell => $cell.css({ background: '#0866f14d' }))
     }
 
     clear() {

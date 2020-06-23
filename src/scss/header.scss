@@ -10,12 +10,12 @@
     .input {
         font-size: 18px;
         line-height: 22px;
-        border: 1px solid transparent;
+        border: 2px solid transparent;
         border-radius: 2px;
         padding: 2px 7px;
         
         &:hover {
-            border: 1px solid $border-color;
+            border: 2px solid $border-color;
         }
         
         &:focus {
