@@ -16,7 +16,8 @@
         "operator-linebreak": "off",
         "max-len": "off",
         "no-debugger": "off",
-        "no-unused-vars": "off"
+        "no-unused-vars": "off",
+        "no-console": "error"
     },
     "extends": ["eslint:recommended", "google"]
 }

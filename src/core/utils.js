@@ -5,20 +5,6 @@ export function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function showTime(fn, thisArg = this) {
-    const name = fn.name + '()'
-    fn = fn.bind(thisArg)
-    fn = new Proxy(fn, {
-        apply: (target, thisArg, args) => {
-            console.time(name);
-            const result = target(...args);
-            console.timeEnd(name);
-            return result
-        }
-    });
-    return fn
-}
-
 export function storage(key, data = null) {
     if (!data) {
         return JSON.parse(localStorage.getItem(key))
@@ -54,4 +40,12 @@ export function debounce(fn, wait) {
         clearTimeout(timeout)
         timeout = setTimeout(later, wait)
     }
+}
+
+export function clone(obj) {
+    return JSON.parse(JSON.stringify(obj))
+}
+
+export function preventDefault(e) {
+    e.preventDefault()
 }
